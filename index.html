@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Въпроси и отговори</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #669966;
+            margin: 0;
+        }
+        .quiz-container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+        .answers li {
+            margin-bottom: 15px;
+        }
+        .answers button {
+            width: 100%;
+            padding: 15px;
+            font-size: 21px;
+            cursor: pointer;
+            background-color: #338866;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+        .answers button:hover {
+            background-color: #006666;
+        }
+        .message {
+            font-size: 18px;
+            color: #006666;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="quiz">
+            <div id="question" class="question"></div>
+            <ul id="answers" class="answers"></ul>
+        </div>
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        const quizData = [
+            {
+                question: "Кой е авторът на култовата дума Лууукс?",
+                answers: ["Дамян", "Данко", "Серго", "Виксата"],
+                correct: "Дамян"
+            },
+            {
+                question: "Кой брокер работи от най много време в офиса?",
+                answers: ["Биксата", "Явор", "Арти", "Никсъна"],
+                correct: "Никсъна"
+            },
+            {
+                question: "Кой е работил като сладкар преди?",
+                answers: ["Петя", "Мария", "Лера", "Тони"],
+                correct: "Лера"
+            },
+            {
+                question: "Кой живее на ул. Стоян Михайловски?",
+                answers: ["Алекс", "Данко", "Тони", "Чечо"],
+                correct: "Чечо"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        const questionElement = document.getElementById('question');
+        const answersElement = document.getElementById('answers');
+        const messageElement = document.getElementById('message');
+
+        function loadQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            answersElement.innerHTML = '';
+            currentQuestion.answers.forEach(answer => {
+                const li = document.createElement('li');
+                const button = document.createElement('button');
+                button.textContent = answer;
+                button.onclick = () => checkAnswer(answer);
+                li.appendChild(button);
+                answersElement.appendChild(li);
+            });
+        }
+
+        function checkAnswer(answer) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            if (answer === currentQuestion.correct) {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showCompletionMessage();
+                }
+            } else {
+                alert("Грешен отговор! Опитайте отново. :)");
+            }
+        }
+
+        function showCompletionMessage() {
+            questionElement.textContent = '';
+            answersElement.innerHTML = '';
+            messageElement.innerHTML = 'Поздравления! Сега трябва да провериш тези координати: <a href="https://www.google.com/maps?q=43.1562518,27.8427791" target="_blank">43.1562518, 27.8427791</a>';
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
