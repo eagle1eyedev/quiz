@@ -67,7 +67,7 @@
                 correct: "Дамян"
             },
             {
-                question: "Кой брокер работи от най много време в офиса?",
+                question: "Кой брокер работи от най-много време в офиса?",
                 answers: ["Биксата", "Явор", "Арти", "Никсъна"],
                 correct: "Никсъна"
             },
@@ -120,7 +120,7 @@
         function showCompletionMessage() {
             questionElement.textContent = '';
             answersElement.innerHTML = '';
-            messageElement.innerHTML = 'Поздравления! Сега трябва да провериш тези координати: <a href="https://www.google.com/maps?q=43.1562518,27.8427791" target="_blank">43.1562518, 27.8427791</a>';
+            messageElement.textContent = '43.1562518, 27.8427791';
         }
 
         loadQuestion();
